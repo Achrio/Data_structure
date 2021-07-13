@@ -13,10 +13,10 @@ int weight[MAX_VERTICES][MAX_VERTICES] = {
 	{ INF, INF, 17, 22, 0 }
 };
 
-int distance[MAX_VERTICES]; //½ÃÀÛ Á¤Á¡À¸·ÎºÎÅÍÀÇ ÃÖ´Ü °æ·Î °Å¸®
-int found[MAX_VERTICES];	//¹æ¹®ÇÑ Á¤Á¡
+int distance[MAX_VERTICES]; //ì‹œì‘ ì •ì ìœ¼ë¡œë¶€í„°ì˜ ìµœë‹¨ ê²½ë¡œ ê±°ë¦¬
+int found[MAX_VERTICES];	//ë°©ë¬¸í•œ ì •ì 
 
-//distance°¡ °¡Àå ÂªÀº Á¤Á¡ ¼±ÅÃ
+//distanceê°€ ê°€ì¥ ì§§ì€ ì •ì  ì„ íƒ
 int choose(int distance[], int n, int found[]) {
 	int i, min, minpos;
 	min = INT_MAX;
@@ -32,17 +32,17 @@ int choose(int distance[], int n, int found[]) {
 void shortest_path(int start, int n) {
 	int i, u, w;
 
-	//ÃÊ±âÈ­ °úÁ¤
+	//ì´ˆê¸°í™” ê³¼ì •
 	for (i = 0; i < n; i++) {
 		distance[i] = weight[start][i];
 		found[i] = 0;
 	}
 
-	//½ÃÀÛ Á¤Á¡
+	//ì‹œì‘ ì •ì 
 	found[start] = 1;
 	distance[start] = 0;
 
-	//±âÁ¸ °æ·Î vs choose¿¡¼­ ¼±ÅÃÇÑ Á¤Á¡ °ÅÃÄ°¡´Â °æ·Î
+	//ê¸°ì¡´ ê²½ë¡œ vs chooseì—ì„œ ì„ íƒí•œ ì •ì  ê±°ì³ê°€ëŠ” ê²½ë¡œ
 	for (i = 0; i < n - 1; i++) {
 		u = choose(distance, n, found);
 		found[u] = 1;
