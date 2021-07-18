@@ -12,22 +12,22 @@ int partition(int list[], int left, int right) {
 	pivot = list[left];
 
 	do {
-		//pivotº¸´Ù ÀÛÀ¸¸é low++, pivotº¸´Ù Å« °ª ³ª¿À¸é Á¤Áö
+		//pivotë³´ë‹¤ ì‘ìœ¼ë©´ low++, pivotë³´ë‹¤ í° ê°’ ë‚˜ì˜¤ë©´ ì •ì§€
 		do low++;
 		while (low <= right && list[low] < pivot);
 
-		//pivotº¸´Ù Å©¸é high--, pivotº¸´Ù ÀÛÀº °ª ³ª¿À¸é Á¤Áö
+		//pivotë³´ë‹¤ í¬ë©´ high--, pivotë³´ë‹¤ ì‘ì€ ê°’ ë‚˜ì˜¤ë©´ ì •ì§€
 		do
 			high--;
 		while (high >= left && list[high] > pivot);
 
-		//list[low]¿Í list[high] °ª swap
+		//list[low]ì™€ list[high] ê°’ swap
 		if (low < high) SWAP(list[low], list[high], temp);
 	
-	//ÀÌ¸¦ low¿Í high°¡ ±³Â÷ÇÒ ¶§±îÁö ¹İº¹
+	//ì´ë¥¼ lowì™€ highê°€ êµì°¨í•  ë•Œê¹Œì§€ ë°˜ë³µ
 	} while (low < high);
 
-	//high¿Í pivot °ª swap
+	//highì™€ pivot ê°’ swap
 	SWAP(list[left], list[high], temp);
 	return high;
 }
@@ -45,16 +45,16 @@ void quick_sort(int list[], int left, int right) {
 
 void radix_sort(int list[], int n) {
 	int i, b, d, factor = 1;
-	QueueType queues[BUCKETS]; //±â¼ö¸¶´ÙÀÇ ·¹ÄÚµå¸¦ ´ãÀ» Å¥
+	QueueType queues[BUCKETS]; //ê¸°ìˆ˜ë§ˆë‹¤ì˜ ë ˆì½”ë“œë¥¼ ë‹´ì„ í
 
 	for (b = 0; b < BUCKETS; b++) init(&queues[b]);
 
 	for (d = 0; d < DIGITS; d++) {
-		//ÀÚ¸´¼ö¸¶´Ù ±â¼ö´ë·Î Å¥¿¡ ´ã´Â´Ù
+		//ìë¦¿ìˆ˜ë§ˆë‹¤ ê¸°ìˆ˜ëŒ€ë¡œ íì— ë‹´ëŠ”ë‹¤
 		for (i = 0; i < n; i++)
 			enqueue(&queues[(list[i] / factor) % 10], list[i]);
 
-		//±â¼ö ¼øÀ¸·Î ·¹ÄÚµå¸¦ »©³»¼­ Á¤·ÄÇÑ´Ù
+		//ê¸°ìˆ˜ ìˆœìœ¼ë¡œ ë ˆì½”ë“œë¥¼ ë¹¼ë‚´ì„œ ì •ë ¬í•œë‹¤
 		for (b = i = 0; b < BUCKETS; b++)
 			while (!is_empty(&queues[b]))
 				list[i++] = dequeue(&queues[b]);
