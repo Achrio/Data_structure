@@ -4,23 +4,23 @@
 #include <string.h>
 #include <stdlib.h>
 
-//Á¦»ê ÇÔ¼ö
-#define M 7 //Å×ÀÌºí Å©±â
+//ì œì‚° í•¨ìˆ˜
+#define M 7 //í…Œì´ë¸” í¬ê¸°
 
 int hash_function(int key) {
 	int hash_index = key % M;
-	if (hash_index < 0) hash_index += M; //À½¼öÀÏ °æ¿ì
+	if (hash_index < 0) hash_index += M; //ìŒìˆ˜ì¼ ê²½ìš°
 	return hash_index;
 }
 
-//¹®ÀÚ¿­ ÇØ½Ì ÇÔ¼ö
+//ë¬¸ìì—´ í•´ì‹± í•¨ìˆ˜
 int hash_function_char(char* key) {
 	int hash_index = 0;
 	while (*key) hash_index = g * hash_index + *key++;
 	return hash_index;
 }
 
-//ÇØ½Ã Å×ÀÌºí
+//í•´ì‹œ í…Œì´ë¸”
 #define KEY_SIZE 10
 #define TABLE_SIZE 13
 
@@ -37,7 +37,7 @@ ListNode* hash_table[TABLE_SIZE];
 #define equal(e1, e2) (!strcmp(e1.key, e2.key))
 
 void hash_lp_add(element item, ListNode* ht[]) {
-	int hash_value = hash_function(hash_function_char(item.key)); //¹®ÀÚ¿­ ¼ıÀÚ·Î ¹Ù²Ù°í Á¦»ê ÇÔ¼ö
+	int hash_value = hash_function(hash_function_char(item.key)); //ë¬¸ìì—´ ìˆ«ìë¡œ ë°”ê¾¸ê³  ì œì‚° í•¨ìˆ˜
 	
 	ListNode* ptr;
 	ListNode* node_before = NULL;
@@ -45,25 +45,25 @@ void hash_lp_add(element item, ListNode* ht[]) {
 
 	for (; node; node_before = node, node = node->link) {
 		if (equal(node->item, item)) {
-			fprintf(stderr, "Å½»öÅ° Áßº¹\n"); return;
+			fprintf(stderr, "íƒìƒ‰í‚¤ ì¤‘ë³µ\n"); return;
 		}
 	}
 	ptr = (ListNode*)malloc(sizeof(ListNode));
 	ptr->item = item; ptr->link = NULL;
 
-	if (node_before) node_before->link = ptr; //±âÁ¸ ¿¬°á¸®½ºÆ®°¡ ÀÖÀ» ¶§
-	else ht[hash_value] = ptr;				  //±âÁ¸ ¿¬°á¸®½ºÆ®°¡ ¾øÀ» ¶§
+	if (node_before) node_before->link = ptr; //ê¸°ì¡´ ì—°ê²°ë¦¬ìŠ¤íŠ¸ê°€ ìˆì„ ë•Œ
+	else ht[hash_value] = ptr;				  //ê¸°ì¡´ ì—°ê²°ë¦¬ìŠ¤íŠ¸ê°€ ì—†ì„ ë•Œ
 }
 
 void hash_lp_search(element item, ListNode* ht[]) {
 	ListNode* node;
 
-	int hash_value = hash_function(hash_function_char(item.key)); //¹®ÀÚ¿­ ¼ıÀÚ·Î ¹Ù²Ù°í Á¦»ê ÇÔ¼ö
-	for (node = ht[hash_value]; node; node = node->link) {		  //ºó °ø°£ Ã£À» ¶§±îÁö
-		if (equal(node->item, item)) { //¶È°°Àº Å½»ö Å° 
-			printf("Å½»ö ¼º°ø : %d\n", hash_value); return;
+	int hash_value = hash_function(hash_function_char(item.key)); //ë¬¸ìì—´ ìˆ«ìë¡œ ë°”ê¾¸ê³  ì œì‚° í•¨ìˆ˜
+	for (node = ht[hash_value]; node; node = node->link) {		  //ë¹ˆ ê³µê°„ ì°¾ì„ ë•Œê¹Œì§€
+		if (equal(node->item, item)) { //ë˜‘ê°™ì€ íƒìƒ‰ í‚¤ 
+			printf("íƒìƒ‰ ì„±ê³µ : %d\n", hash_value); return;
 		}
 	}
-	fprintf(stderr, "Ã£´Â °ªÀÌ Å×ÀÌºí¿¡ ¾øÀ½\n");
+	fprintf(stderr, "ì°¾ëŠ” ê°’ì´ í…Œì´ë¸”ì— ì—†ìŒ\n");
 }
 
